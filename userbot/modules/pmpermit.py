@@ -33,11 +33,13 @@ from userbot.modules.dbhelper import (
 
 # ========================= CONSTANTS ============================
 UNAPPROVED_MSG = (
-    "`Bleep blop! This is a bot. Don't fret.\n\n`"
-    "`My owner hasn't approved you to PM. `"
-    "`Please wait for my owner to look in, they mostly approve PMs.\n\n`"
-    "`As far as I know, they don't usually approve retards though.\n\n`"
-)
+    "Hey hi!\n\n"
+    "This is an automatic reply! \n\n"
+    "I am no longer associated with Xiaomi|MIUI.\n"
+    "Please reach out to Xiaomi|MIUI officials on social media for any kind of query/feedback.\n\n" 
+    "For anything else, you are welcome to start the chat.\n"
+    "**Don't send more than two messages or you may be blocked and reported spam automatically.**\n\n"
+    "Thanks for understanding, Stay safe!")
 # =================================================================
 
 
