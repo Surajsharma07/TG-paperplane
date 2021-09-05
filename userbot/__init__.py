@@ -67,6 +67,9 @@ STRING_SESSION = os.environ.get("STRING_SESSION") or None
 
 BOTLOG = os.environ.get("BOTLOG") == "True"
 
+# Youtube API key
+YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", None)
+
 BOTLOG_CHATID = int(os.environ.get("BOTLOG_CHATID")) if BOTLOG else 0
 
 PM_AUTO_BAN = os.environ.get("PM_AUTO_BAN") == "True"
