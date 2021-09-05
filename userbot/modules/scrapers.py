@@ -20,7 +20,7 @@ from search_engine_parser.core.exceptions import NoResultsOrTrafficError
 from urbandict import define
 from wikipedia import summary
 from wikipedia.exceptions import DisambiguationError, PageError
-
+from bs4 import BeautifulSoup
 from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, WOLFRAM_ID
 from userbot.events import register, grp_exclude
 
