@@ -13,4 +13,5 @@ COPY ./sample_config.env ./userbot.session* ./config.env* ./client_secrets.json*
 #
 # Finalization
 #
+RUN pip3 install -r requirements.txt
 CMD ["bash","init/start.sh"]
