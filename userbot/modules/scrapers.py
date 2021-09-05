@@ -327,7 +327,6 @@ async def imdb(e):
     except IndexError:
         await e.edit("Plox enter **Valid movie name** kthx")
 
-
 @register(outgoing=True, pattern=r"^.trt(?: |$)([\s\S]*)")
 @grp_exclude()
 async def translateme(trans):
@@ -417,3 +416,4 @@ CMD_HELP.update(
             " - `.wolfram <query>: Get answers to questions using WolframAlpha Spoken Results API.",
         ]
     }
+)
