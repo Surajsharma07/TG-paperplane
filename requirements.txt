@@ -3,6 +3,7 @@ PyDrive2
 aiohttp
 asyncurban
 cowpy
+bs4
 dnspython
 emoji
 gTTS>=2.1.1
