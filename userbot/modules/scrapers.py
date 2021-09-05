@@ -244,81 +244,6 @@ async def text_to_speech(query):
                 BOTLOG_CHATID, "TTS of " + message + " executed successfully!"
             )
         await query.delete()
-
-
-@register(outgoing=True, pattern=r"^.trt(?: |$)([\s\S]*)")
-@grp_exclude()
-async def translateme(trans):
-    """For .trt command, translate the given text using Google Translate."""
-    translator = Translator()
-    textx = await trans.get_reply_message()
-    message = trans.pattern_match.group(1)
-    if message:
-        pass
-    elif textx:
-        message = textx.text
-    else:
-        await trans.edit("`Give a text or reply " "to a message to translate!`")
-        return
-
-    try:
-        reply_text = translator.translate(deEmojify(message), dest=LANG)
-    except ValueError:
-        await trans.edit("Invalid destination language.")
-        return
-
-    source_lan = LANGUAGES[f"{reply_text.src.lower()}"]
-    transl_lan = LANGUAGES[f"{reply_text.dest.lower()}"]
-    reply_text = f"**Source ({source_lan.title()}):**`\n{message}`**\n\
-\nTranslation ({transl_lan.title()}):**`\n{reply_text.text}`"
-
-    await trans.client.send_message(trans.chat_id, reply_text)
-    await trans.delete()
-    if BOTLOG:
-        await trans.client.send_message(
-            BOTLOG_CHATID, f"Translate query {message} was executed successfully"
-        )
-
-
-@register(pattern="^.lang (.*)", outgoing=True)
-@grp_exclude()
-async def lang(value):
-    """For .lang command, change the default langauge of userbot scrapers."""
-    global LANG
-    LANG = value.pattern_match.group(1)
-    await value.edit("Default language changed to **" + LANG + "**")
-    if BOTLOG:
-        await value.client.send_message(
-            BOTLOG_CHATID, "Default language changed to **" + LANG + "**"
-        )
-
-
-def deEmojify(inputString):
-    """Remove emojis and other non-safe characters from string"""
-    return get_emoji_regexp().sub("", inputString)
-
-
-@register(outgoing=True, pattern=r"^.wolfram (.*)")
-@grp_exclude()
-async def wolfram(wvent):
-    """Wolfram Alpha API"""
-    if WOLFRAM_ID is None:
-        await wvent.edit(
-            "Please set your WOLFRAM_ID first !\n"
-            "Get your API KEY from [here](https://"
-            "products.wolframalpha.com/api/)",
-            parse_mode="Markdown",
-        )
-        return
-    i = wvent.pattern_match.group(1)
-    appid = WOLFRAM_ID
-    server = f"https://api.wolframalpha.com/v1/spoken?appid={appid}&i={i}"
-    res = get(server)
-    await wvent.edit(f"**{i}**\n\n" + res.text, parse_mode="Markdown")
-    if BOTLOG:
-        await wvent.client.send_message(
-            BOTLOG_CHATID, f".wolfram {i} was executed successfully"
-        )
 # kanged from Blank-x ;---;
 @register(outgoing=True, pattern="^\.imdb (.*)")
 async def imdb(e):
@@ -401,6 +326,81 @@ async def imdb(e):
                      parse_mode='HTML')
     except IndexError:
         await e.edit("Plox enter **Valid movie name** kthx")
+
+
+@register(outgoing=True, pattern=r"^.trt(?: |$)([\s\S]*)")
+@grp_exclude()
+async def translateme(trans):
+    """For .trt command, translate the given text using Google Translate."""
+    translator = Translator()
+    textx = await trans.get_reply_message()
+    message = trans.pattern_match.group(1)
+    if message:
+        pass
+    elif textx:
+        message = textx.text
+    else:
+        await trans.edit("`Give a text or reply " "to a message to translate!`")
+        return
+
+    try:
+        reply_text = translator.translate(deEmojify(message), dest=LANG)
+    except ValueError:
+        await trans.edit("Invalid destination language.")
+        return
+
+    source_lan = LANGUAGES[f"{reply_text.src.lower()}"]
+    transl_lan = LANGUAGES[f"{reply_text.dest.lower()}"]
+    reply_text = f"**Source ({source_lan.title()}):**`\n{message}`**\n\
+\nTranslation ({transl_lan.title()}):**`\n{reply_text.text}`"
+
+    await trans.client.send_message(trans.chat_id, reply_text)
+    await trans.delete()
+    if BOTLOG:
+        await trans.client.send_message(
+            BOTLOG_CHATID, f"Translate query {message} was executed successfully"
+        )
+
+
+@register(pattern="^.lang (.*)", outgoing=True)
+@grp_exclude()
+async def lang(value):
+    """For .lang command, change the default langauge of userbot scrapers."""
+    global LANG
+    LANG = value.pattern_match.group(1)
+    await value.edit("Default language changed to **" + LANG + "**")
+    if BOTLOG:
+        await value.client.send_message(
+            BOTLOG_CHATID, "Default language changed to **" + LANG + "**"
+        )
+
+
+def deEmojify(inputString):
+    """Remove emojis and other non-safe characters from string"""
+    return get_emoji_regexp().sub("", inputString)
+
+
+@register(outgoing=True, pattern=r"^.wolfram (.*)")
+@grp_exclude()
+async def wolfram(wvent):
+    """Wolfram Alpha API"""
+    if WOLFRAM_ID is None:
+        await wvent.edit(
+            "Please set your WOLFRAM_ID first !\n"
+            "Get your API KEY from [here](https://"
+            "products.wolframalpha.com/api/)",
+            parse_mode="Markdown",
+        )
+        return
+    i = wvent.pattern_match.group(1)
+    appid = WOLFRAM_ID
+    server = f"https://api.wolframalpha.com/v1/spoken?appid={appid}&i={i}"
+    res = get(server)
+    await wvent.edit(f"**{i}**\n\n" + res.text, parse_mode="Markdown")
+    if BOTLOG:
+        await wvent.client.send_message(
+            BOTLOG_CHATID, f".wolfram {i} was executed successfully"
+        )
 
 
 CMD_HELP.update(
