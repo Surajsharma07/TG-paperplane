@@ -69,6 +69,9 @@ BOTLOG = os.environ.get("BOTLOG") == "True"
 
 # Youtube API key
 YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", None)
+# Chrome Driver and Headless Google Chrome Binaries
+CHROME_DRIVER = os.environ.get("CHROME_DRIVER", None)
+GOOGLE_CHROME_BIN = os.environ.get("GOOGLE_CHROME_BIN", None)
 
 BOTLOG_CHATID = int(os.environ.get("BOTLOG_CHATID")) if BOTLOG else 0
 
